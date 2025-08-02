@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+  <title>House Price Predictor</title>
+</head>
+<body>
+  <h1>California Housing Price Prediction</h1>
+  <form method="post">
+    {% for i in range(8) %}
+      Feature {{ i+1 }}: <input type="text" name="f{{ i }}" required><br>
+    {% endfor %}
+    <input type="submit" value="Predict">
+  </form>
+
+  {% if prediction is not none %}
+    <h2>Predicted Price: ${{ prediction }}</h2>
+  {% endif %}
+</body>
+</html>
