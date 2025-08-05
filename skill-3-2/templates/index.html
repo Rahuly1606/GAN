@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Train DNN Model</title>
+</head>
+<body>
+    <h2>Configure and Train Your DNN Model</h2>
+
+    <form method="POST">
+        <label>Number of Hidden Layers:</label>
+        <select name="num_layers">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select><br><br>
+
+        <label>Dropout Rate:</label>
+        <select name="dropout">
+            <option value="0.2">0.2</option>
+            <option value="0.3">0.3</option>
+            <option value="0.5">0.5</option>
+        </select><br><br>
+
+        <label>Optimizer:</label>
+        <select name="optimizer">
+            <option value="adam">Adam</option>
+            <option value="sgd">SGD</option>
+            <option value="rmsprop">RMSprop</option>
+        </select><br><br>
+
+        <label>Use Learning Rate Scheduler?</label>
+        <select name="scheduler">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br><br>
+
+        <input type="submit" value="Train Model">
+    </form>
+
+    {% if result %}
+        <h3>Test Accuracy: {{ result.accuracy }}%</h3>
+        <img src="/static/loss_curve.png" alt="Loss Curve" width="500">
+    {% endif %}
+</body>
+</html>

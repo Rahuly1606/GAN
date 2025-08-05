@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Iris Classifier - PyTorch</title>
+</head>
+<body>
+    <h2>Iris Flower Classification (PyTorch)</h2>
+
+    <form method="POST">
+        <label>Choose Model:</label>
+        <select name="model_type">
+            <option value="ANN" {% if model_type == 'ANN' %}selected{% endif %}>ANN (1 hidden layer)</option>
+            <option value="DNN" {% if model_type == 'DNN' %}selected{% endif %}>DNN (3 hidden layers)</option>
+        </select><br><br>
+
+        <label>Activation Function:</label>
+        <select name="activation">
+            <option value="relu" {% if activation == 'relu' %}selected{% endif %}>ReLU</option>
+            <option value="sigmoid" {% if activation == 'sigmoid' %}selected{% endif %}>Sigmoid</option>
+            <option value="tanh" {% if activation == 'tanh' %}selected{% endif %}>Tanh</option>
+        </select><br><br>
+
+        <button type="submit">Train & Evaluate</button>
+    </form>
+
+    {% if accuracy %}
+        <h3>Final Test Accuracy: {{ accuracy | round(4) }}</h3>
+        <img src="/static/plot.png?{{ accuracy }}" width="400" alt="Training Loss Plot"><br><br>
+
+        <h4>Weights and Biases:</h4>
+        {% for layer in weights_biases %}
+            <b>Layer {{ loop.index }}</b><br>
+            Weights: {{ layer.weights }}<br>
+            Biases: {{ layer.biases }}<br><br>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
