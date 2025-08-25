@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Face Image Preprocessing</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f8f9fa; text-align: center; }
+        .image-set { margin-bottom: 50px; }
+        .row { display: flex; justify-content: center; flex-wrap: wrap; margin-top: 15px; }
+        .col { margin: 10px; }
+        img { width: 180px; height: auto; border-radius: 10px; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+        img:hover { transform: scale(1.05); }
+        h2 { margin-bottom: 15px; }
+
+        /* Modal */
+        .modal { display: none; position: fixed; z-index: 10; left: 0; top: 0; width: 100%; height: 100%; overflow: auto;
+                 background-color: rgba(0,0,0,0.9); }
+        .modal-content { margin: auto; display: block; max-width: 90%; max-height: 80%; }
+        .close { position: absolute; top: 20px; right: 40px; color: #fff; font-size: 35px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Face Image Preprocessing Results</h1>
+
+    {% if images %}
+        {% for img in images %}
+        <div class="image-set">
+            <h2>{{ img.name }}</h2>
+            <div class="row">
+                <div class="col"><h3>Original</h3><img src="{{ url_for('static', filename=img.original) }}" onclick="openModal(this)"></div>
+                <div class="col"><h3>Resized</h3><img src="{{ url_for('static', filename=img.resized) }}" onclick="openModal(this)"></div>
+                <div class="col"><h3>Cropped</h3><img src="{{ url_for('static', filename=img.cropped) }}" onclick="openModal(this)"></div>
+                <div class="col"><h3>Gray+HistEq</h3><img src="{{ url_for('static', filename=img.gray_eq) }}" onclick="openModal(this)"></div>
+                <div class="col"><h3>Canny</h3><img src="{{ url_for('static', filename=img.canny) }}" onclick="openModal(this)"></div>
+                <div class="col"><h3>Sobel</h3><img src="{{ url_for('static', filename=img.sobel) }}" onclick="openModal(this)"></div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <h2>No images found. Please add images to <code>static/faces/</code> and refresh.</h2>
+    {% endif %}
+
+    <!-- Modal -->
+    <div id="imgModal" class="modal" onclick="closeModal()">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
+
+    <script>
+        function openModal(imgElement) {
+            document.getElementById("imgModal").style.display = "block";
+            document.getElementById("modalImg").src = imgElement.src;
+        }
+        function closeModal() {
+            document.getElementById("imgModal").style.display = "none";
+        }
+    </script>
+</body>
+</html>
